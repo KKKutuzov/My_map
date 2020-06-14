@@ -1,10 +1,10 @@
 #include<iostream>
 #include <stack>
+#include <string>
 
 class myex{
-    private:
-        int id;
     public:
+        int id;
         myex(int k){id=k;}
 };
 
@@ -31,7 +31,7 @@ class mymap
         delete t;
     }
 
-    node* insert(T x, const string &s, node* t)
+    node* insert(T x, const std::string &s, node* t)
     {
         if(t == NULL)
         {
@@ -64,7 +64,7 @@ class mymap
             }
         }
 
-        t->height = max(height(t->left), height(t->right))+1;
+        t->height = std::max(height(t->left), height(t->right))+1;
         return t;
     }
 
@@ -73,8 +73,8 @@ class mymap
         node* u = t->left;
         t->left = u->right;
         u->right = t;
-        t->height = max(height(t->left), height(t->right))+1;
-        u->height = max(height(u->left), t->height)+1;
+        t->height = std::max(height(t->left), height(t->right))+1;
+        u->height = std::max(height(u->left), t->height)+1;
         return u;
     }
 
@@ -83,8 +83,8 @@ class mymap
         node* u = t->right;
         t->right = u->left;
         u->left = t;
-        t->height = max(height(t->left), height(t->right))+1;
-        u->height = max(height(t->right), t->height)+1 ;
+        t->height = std::max(height(t->left), height(t->right))+1;
+        u->height = std::max(height(t->right), t->height)+1 ;
         return u;
     }
 
@@ -128,7 +128,7 @@ class mymap
         return this->right;
     }
 
-    node* remove(const string &s, node* t)
+    node* remove(const std::string &s, node* t)
     {
         node* temp;
 
@@ -164,7 +164,7 @@ class mymap
         if(t == NULL)
             return t;
 
-        t->height = max(height(t->left), height(t->right))+1;
+        t->height = std::max(height(t->left), height(t->right))+1;
 
         // If node is unbalanced
         // If left node is deleted, right case
@@ -203,7 +203,7 @@ class mymap
             return height(t->left) - height(t->right);
     }
 
-    bool myfind(const string &s, node *t)
+    bool myfind(const std::string &s, node *t)
     {
         if(t == NULL)
         {
@@ -225,12 +225,11 @@ class mymap
             }
         }
     }
-    T myfindData(const string &s, node *t)
+    T myfindData(const std::string &s, node *t)
     {
         if(t == NULL)
         {
             throw myex(1);
-            return NULL;
         }
         else{
             if(s  == t->key)
@@ -254,7 +253,7 @@ class mymap
         if(t == NULL)
             return;
         inorder(t->left);
-        cout << t->key << " " << t->data << endl;
+        std::cout << t->key << " " << t->data << std::endl;
 
         inorder(t->right);
     }
@@ -277,12 +276,12 @@ public:
         root = NULL;
     }
 
-    void insert(const string &s,T x)
+    void insert(const std::string &s,T x)
     {
         root = insert(x,s, root);
     }
 
-    void remove(const string &s)
+    void remove(const std::string &s)
     {
         root = remove(s, root);
     }
@@ -295,11 +294,11 @@ public:
     {
        return mycount(root);
     }
-    bool find(const string &s)
+    bool find(const std::string &s)
     {
         return myfind(s,root);
     }
-    T GetDataTree(const string &s)
+    T GetDataTree(const std::string &s)
     {
         return myfindData(s,root);
     }
@@ -307,11 +306,11 @@ public:
 private:
     // Stack to store the nodes
     // of BST
-    stack<node*> q;
+    std::stack<node*> q;
 
 public:
     // Constructor for the class
-    bstit(mymap<T> l)
+    bstit(mymap<T> &l)
     {
         // Initializing stack
         node* curr = l.root;
@@ -343,7 +342,7 @@ public:
     {
         return !(q.size());
     }
-    string GetKey()
+    std::string GetKey()
     {
         return (*curr()).key;
     }
@@ -358,6 +357,6 @@ public:
 void iterate(bstit it)
 {
     while (!it.isEnd())
-        cout << it.curr()->data << " ", it.next();
+        std::cout << it.curr()->data << " ", it.next();
 }
 };
